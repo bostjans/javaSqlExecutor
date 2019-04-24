@@ -315,7 +315,7 @@ public class MainRun {
     /**
      * Method: processSelect
      *
-     * Run ..
+     * Process DML operation: Select
      *
      * @return int i_result	1 = AllOK;
      */
@@ -336,7 +336,7 @@ public class MainRun {
     /**
      * Method: processUID
      *
-     * Run ..
+     * Process DML operation: Update/Insert/Delete
      *
      * @return int i_result	1 = AllOK;
      */
