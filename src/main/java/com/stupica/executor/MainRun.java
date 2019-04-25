@@ -6,19 +6,18 @@ import com.stupica.GlobalVar;
 
 import com.stupica.jdbc.ConnectionHandler;
 import com.stupica.jdbc.StatementHandler;
+import com.stupica.mainRunner.MainRunBase;
 import jargs.gnu.CmdLineParser;
 
 import java.io.File;
 import java.util.Date;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
 /**
  * Created by bostjans on 07/09/16.
  */
-public class MainRun {
+public class MainRun extends MainRunBase {
     // Variables
     //
     boolean bIsModeTest = true;
@@ -48,6 +47,17 @@ public class MainRun {
      */
     private static MainRun objInstance;
 
+    CmdLineParser.Option obj_op_source = null;
+    CmdLineParser.Option obj_op_dest = null;
+    CmdLineParser.Option obj_op_user = null;
+    CmdLineParser.Option obj_op_psw = null;
+    //CmdLineParser.Option obj_op_table = null;
+    //CmdLineParser.Option obj_op_oper = obj_parser.addStringOption('o', "operation");
+    //CmdLineParser.Option obj_op_csv = obj_parser.addStringOption('c', "csv");
+    //CmdLineParser.Option obj_op_field = obj_parser.addStringOption('f', "field");
+    //CmdLineParser.Option obj_op_fieldCheck = obj_parser.addStringOption("fieldCheck");
+    CmdLineParser.Option obj_op_max = null;
+
     private ConnectionHandler objConnHandler = null;
     private StatementHandler objStatHandler = null;
 
@@ -59,123 +69,32 @@ public class MainRun {
      */
     public static void main(String[] a_args) {
         // Local variables
-        int             i_result;
-        int             i_return;
+        int             iReturn;
 
         // Initialization
-        i_result = ConstGlobal.RETURN_OK;
-        //
-        i_return = ConstGlobal.PROCESS_EXIT_SUCCESS;
+        iReturn = ConstGlobal.PROCESS_EXIT_SUCCESS;
         GlobalVar.getInstance().sProgName = "sqlExecutor.csv";
-        GlobalVar.getInstance().sVersionMax = "0";
-        GlobalVar.getInstance().sVersionMin = "1";
-        GlobalVar.getInstance().sVersionPatch = "0";
-        GlobalVar.getInstance().sVersionBuild = "11";
+        GlobalVar.getInstance().sVersionBuild = "21";
         GlobalVar.getInstance().sAuthor = "stupica.com - Bostjan Stupica";
 
         // Generate main program class
         objInstance = new MainRun();
-
-        if (objInstance.bIsModeTest) {
-            if (logger != null) {
-                logger.setLevel(Level.FINE);
-
-                ConsoleHandler handler = new ConsoleHandler();
-                // PUBLISH this level
-                handler.setLevel(Level.FINE);
-                logger.addHandler(handler);
-                //
-                logger.setUseParentHandlers(false);
-            }
-        }
-
-        // Program parameters
-        //
-        // Create a CmdLineParser, and add to it the appropriate Options.
-        CmdLineParser obj_parser = new CmdLineParser();
-        CmdLineParser.Option obj_op_help = obj_parser.addBooleanOption('h', "help");
-        CmdLineParser.Option obj_op_quiet = obj_parser.addBooleanOption('q', "quiet");
-        CmdLineParser.Option obj_op_source = obj_parser.addStringOption('s', "sql");
-        CmdLineParser.Option obj_op_dest = obj_parser.addStringOption('d', "dest");
-        CmdLineParser.Option obj_op_user = obj_parser.addStringOption('u', "user");
-        CmdLineParser.Option obj_op_psw = obj_parser.addStringOption('p', "psw");
-        //CmdLineParser.Option obj_op_table = obj_parser.addStringOption('t', "table");
-        //CmdLineParser.Option obj_op_oper = obj_parser.addStringOption('o', "operation");
-        //CmdLineParser.Option obj_op_csv = obj_parser.addStringOption('c', "csv");
-        //CmdLineParser.Option obj_op_field = obj_parser.addStringOption('f', "field");
-        //CmdLineParser.Option obj_op_fieldCheck = obj_parser.addStringOption("fieldCheck");
-        CmdLineParser.Option obj_op_max = obj_parser.addLongOption('m', "maxRows");
-
-        try {
-            obj_parser.parse(a_args);
-        } catch (CmdLineParser.OptionException e) {
-            System.err.println(e.getMessage());
-            print_usage();
-            System.exit(ConstGlobal.PROCESS_EXIT_FAIL_PARAM);
-        }
-
-        if (Boolean.TRUE.equals(obj_parser.getOptionValue(obj_op_help))) {
-            print_usage();
-            System.exit(ConstGlobal.PROCESS_EXIT_SUCCESS);
-        }
-        if (!Boolean.TRUE.equals(obj_parser.getOptionValue(obj_op_quiet)))
-        {
-            // Display program info
-            System.out.println();
-            System.out.println("Program: " + GlobalVar.getInstance().sProgName);
-            System.out.println("Version: " + GlobalVar.getInstance().get_version());
-            System.out.println("Made by: " + GlobalVar.getInstance().sAuthor);
-            System.out.println("===");
-            // Check logger
-            if (logger != null) {
-                logger.info("main(): Program is starting ..");
-            }
-        } else {
-            objInstance.bIsModeVerbose = false;
-        }
-
-        // Check previous step
-        if (i_return == ConstGlobal.PROCESS_EXIT_SUCCESS) {
-            // Set program parameter
-            objInstance.sInputSql = (String)obj_parser.getOptionValue(obj_op_source, "");
-        }
-        // Check previous step
-        if (i_return == ConstGlobal.PROCESS_EXIT_SUCCESS) {
-            // Set program parameter
-            objInstance.sJdbcConn = (String)obj_parser.getOptionValue(obj_op_dest, objInstance.sJdbcConn);
-            objInstance.sJdbcUser = (String)obj_parser.getOptionValue(obj_op_user, "test");
-            objInstance.sJdbcPsw = (String)obj_parser.getOptionValue(obj_op_psw, "");
-        }
-
-        // Check previous step
-        if (i_return == ConstGlobal.PROCESS_EXIT_SUCCESS) {
-            // Set program parameter
-            objInstance.iMaxNumOfRows = (Long)obj_parser.getOptionValue(obj_op_max, 0L);
-        }
-
-        // Check previous step
-        if (i_return == ConstGlobal.PROCESS_EXIT_SUCCESS) {
-            // Run ..
-            i_result = objInstance.run();
-            // Error
-            if (i_result != ConstGlobal.RETURN_OK) {
-                logger.severe("main(): Error at run() operation!");
-                i_return = ConstGlobal.PROCESS_EXIT_FAILURE;
-            }
-        }
+        iReturn = objInstance.invokeApp(a_args);
 
         // Return
-        if (i_return != ConstGlobal.PROCESS_EXIT_SUCCESS)
-            System.exit(i_return);
+        if (iReturn != ConstGlobal.PROCESS_EXIT_SUCCESS)
+            System.exit(iReturn);
         else
             //System.exit(ConstGlobal.EXIT_SUCCESS);
             return;
     }
 
 
-    private static void print_usage() {
-        System.err.println("Usage: prog [-h,--help]");
-        System.err.println("            [-q,--quiet]");
+    protected void printUsage() {
+        super.printUsage();
+        //System.err.println("Usage: prog [-h,--help]");
+        //System.err.println("            [-q,--quiet]");
+        //System.err.println("            [{-c,--currpair} a_currency_pair]");
         System.err.println("            [{-s,--sql} a_sql_statement]");
         System.err.println("            [{-d,--dest} a_jdbc_url]");
         System.err.println("            [{-u,--user} a_jdbc_username]");
@@ -186,6 +105,75 @@ public class MainRun {
         //System.err.println("            [{-f,--field(s)} field(s) definition");
         //System.err.println("            [{--fieldCheck} field(s) definition 2 check");
         System.err.println("            [{-m,--maxRows} max rows to import");
+    }
+
+    /**
+     * Method: initialize
+     *
+     * ..
+     */
+    protected void initialize() {
+        super.initialize();
+        bShouldReadConfig = false;
+    }
+
+
+    /**
+     * Method: defineArguments
+     *
+     * ..
+     *
+     * @return int iResult	1 = AllOK;
+     */
+    protected int defineArguments() {
+        // Local variables
+        int         iResult;
+
+        // Initialization
+        iResult = super.defineArguments();
+
+        obj_op_source = obj_parser.addStringOption('s', "sql");
+        obj_op_dest = obj_parser.addStringOption('d', "dest");
+        obj_op_user = obj_parser.addStringOption('u', "user");
+        obj_op_psw = obj_parser.addStringOption('p', "psw");
+        obj_op_max = obj_parser.addLongOption('m', "maxRows");
+
+        return iResult;
+    }
+
+    /**
+     * Method: readArguments
+     *
+     * ..
+     *
+     * @return int iResult	1 = AllOK;
+     */
+    protected int readArguments() {
+        // Local variables
+        int         iResult;
+
+        // Initialization
+        iResult = super.readArguments();
+
+        // Check previous step
+        if (iResult == ConstGlobal.RETURN_OK) {
+            // Set program parameter
+            objInstance.sInputSql = (String)obj_parser.getOptionValue(obj_op_source, "");
+        }
+        // Check previous step
+        if (iResult == ConstGlobal.RETURN_OK) {
+            // Set program parameter
+            objInstance.sJdbcConn = (String)obj_parser.getOptionValue(obj_op_dest, objInstance.sJdbcConn);
+            objInstance.sJdbcUser = (String)obj_parser.getOptionValue(obj_op_user, "test");
+            objInstance.sJdbcPsw = (String)obj_parser.getOptionValue(obj_op_psw, "");
+        }
+
+        // Check previous step
+        if (iResult == ConstGlobal.RETURN_OK) {
+            // Set program parameter
+            objInstance.iMaxNumOfRows = (Long)obj_parser.getOptionValue(obj_op_max, 0L);
+        }
+        return iResult;
     }
 
 
