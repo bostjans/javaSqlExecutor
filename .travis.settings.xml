@@ -17,9 +17,10 @@
                 <name>release</name>
                 <url>http://developer.stupica.com/maven</url>
             </repository>
-            <!--
-            -->
         </repositories>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
     </profile>
     <!-- /stupica.com -->
 
