@@ -121,6 +121,12 @@
         </repository>
     </repositories> -->
 
+    <scm>
+        <url>https://github.com/bostjans/javaSqlExecutor</url>
+        <connection>scm:git:git@github.com:bostjans/javaSqlExecutor.git</connection>
+        <developerConnection>scm:git:git@github.com:bostjans/javaSqlExecutor.git</developerConnection>
+    </scm>
+
     <developers>
         <developer>
             <id>bostjanst</id>

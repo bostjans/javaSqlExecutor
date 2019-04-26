@@ -8,5 +8,5 @@ cache:
     - "$HOME/.m2"
 
 script:
-  - mvn clean install site -P bDev
+  - mvn clean install site -P bDev --settings .travis.settings.xml
   - copy2media.sh
