@@ -7,6 +7,8 @@ cache:
   directories:
     - "$HOME/.m2"
 
-script:
-  - mvn clean install site -P bDev --settings .travis.settings.xml
+before_install:
+  - cp .travis.settings.xml ~/.m2/settings.xml
+
+after_script:
   - copy2media.sh
