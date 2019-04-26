@@ -1,0 +1,28 @@
+<Settings Xmlns="Http://Maven.Apache.Org/SETTINGS/1.0.0"
+          Xmlns:Xsi="Http://Www.W3.Org/2001/XMLSchema-Instance"
+          Xsi:SchemaLocation="Http://Maven.Apache.Org/SETTINGS/1.0.0
+                      Http://Maven.Apache.Org/Xsd/Settings-1.0.0.Xsd">
+
+    <profiles>
+
+    <!-- stupica.com -->
+    <profile>
+        <id>bDev</id>
+        <repositories>
+            <repository>
+                <snapshots>
+                    <enabled>false</enabled>
+                </snapshots>
+                <id>bDevRelease</id>
+                <name>release</name>
+                <url>http://developer.stupica.com/maven</url>
+            </repository>
+            <!--
+            -->
+        </repositories>
+    </profile>
+    <!-- /stupica.com -->
+
+    </profiles>
+
+</Settings>
