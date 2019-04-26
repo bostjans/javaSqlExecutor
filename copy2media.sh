@@ -9,10 +9,10 @@ mkdir dist
 cd dist
 
 mkdir sqlExecutor
-mkdir sqlExecutor/lib
+#mkdir sqlExecutor/lib
 cp -r ../target/*.jar ./sqlExecutor/
 cp -r ../executorRun.sh ./sqlExecutor/
-cp -r ../target/lib/*.jar ./sqlExecutor/lib/
+#cp -r ../target/lib/*.jar ./sqlExecutor/lib/
 rm ./sqlExecutor/lib/junit*.*
 rm ./sqlExecutor/lib/hamcrest*.*
 

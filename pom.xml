@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
     <name>sqlExecutor</name>
     <organization>
-        <name>developer.stupica.com</name>
+        <name>Developer404</name>
         <url>http://www.stupica.com</url>
     </organization>
     <url>http://developer.stupica.com/maven</url>
@@ -23,13 +23,6 @@
     <!-- library dependencies -->
 
     <dependencies>
-        <!--
-        <dependency>
-            <groupId>net.sf</groupId>
-            <artifactId>jargs</artifactId>
-            <version>1.0</version>
-        </dependency> -->
-
         <dependency>
             <groupId>com.stupica.base</groupId>
             <artifactId>mainRunner</artifactId>
@@ -96,15 +89,37 @@
                     </archive>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.stupica.executor.MainRun</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
+    <!--
     <repositories>
         <repository>
             <id>jboss-3rd-party-releases</id>
             <url>https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/</url>
         </repository>
-    </repositories>
+    </repositories> -->
 
     <developers>
         <developer>
