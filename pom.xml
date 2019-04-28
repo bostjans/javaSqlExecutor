@@ -111,6 +111,14 @@
                 </executions>
             </plugin>
         </plugins>
+
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ftp</artifactId>
+                <version>3.3.2</version>
+            </extension>
+        </extensions>
     </build>
 
     <!--
@@ -120,6 +128,13 @@
             <url>https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/</url>
         </repository>
     </repositories> -->
+
+    <distributionManagement>
+        <repository>
+            <id>bDevRelease2</id>
+            <url>ftp://developer.dev404.net/maven2</url>
+        </repository>
+    </distributionManagement>
 
     <scm>
         <url>https://github.com/bostjans/javaSqlExecutor</url>

@@ -3,6 +3,16 @@
           Xsi:SchemaLocation="Http://Maven.Apache.Org/SETTINGS/1.0.0
                       Http://Maven.Apache.Org/Xsd/Settings-1.0.0.Xsd">
 
+    <servers>
+    <!-- stupica.com -->
+    <server>
+        <username>${env.CI_DEPLOY_USERNAME}</username>
+        <password>${env.CI_DEPLOY_PASSWORD}</password>
+        <id>bDevRelease2</id>
+    </server>
+    <!-- /stupica.com -->
+    </servers>
+
     <profiles>
 
     <!-- stupica.com -->
