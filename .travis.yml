@@ -15,7 +15,7 @@ before_install:
 
 deploy:
   provider: script
-  script: "mvn deploy"
+  script: "curl --list-only ftp://developertest@dev404.net:public_html7@developer.dev404.net/"
   skip_cleanup: true
 
 after_script:
