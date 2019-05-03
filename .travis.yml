@@ -15,7 +15,7 @@ before_install:
 
 deploy:
   provider: script
-  script: "curl -T \"README.md\" --ftp-pasv --user developertest@dev404.net:public_html7 ftp://developer.dev404.net/"
+  script: "mvn -X deploy"
   skip_cleanup: true
 
 after_script:

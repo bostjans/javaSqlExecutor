@@ -4,35 +4,39 @@
         xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
 
     <servers>
-    <!-- stupica.com -->
-    <server>
-        <username>${env.CI_DEPLOY_USERNAME}</username>
-        <password>${env.CI_DEPLOY_PASSWORD}</password>
-        <id>bDevRelease2</id>
-    </server>
-    <!-- /stupica.com -->
+        <!-- stupica.com -->
+        <server>
+            <username>${env.CI_DEPLOY_USERNAME}</username>
+            <password>${env.CI_DEPLOY_PASSWORD}</password>
+            <id>bDevRelease2</id>
+            <configuration>
+                <passiveMode>true</passiveMode>
+                <endpointChecking>false</endpointChecking>
+            </configuration>
+        </server>
+        <!-- /stupica.com -->
     </servers>
 
     <profiles>
 
-    <!-- stupica.com -->
-    <profile>
-        <id>bDev</id>
-        <repositories>
-            <repository>
-                <snapshots>
-                    <enabled>false</enabled>
-                </snapshots>
-                <id>bDevRelease</id>
-                <name>release</name>
-                <url>http://developer.stupica.com/maven</url>
-            </repository>
-        </repositories>
-        <activation>
-            <activeByDefault>true</activeByDefault>
-        </activation>
-    </profile>
-    <!-- /stupica.com -->
+        <!-- stupica.com -->
+        <profile>
+            <id>bDev</id>
+            <repositories>
+                <repository>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <id>bDevRelease</id>
+                    <name>release</name>
+                    <url>http://developer.stupica.com/maven</url>
+                </repository>
+            </repositories>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <!-- /stupica.com -->
 
     </profiles>
 
