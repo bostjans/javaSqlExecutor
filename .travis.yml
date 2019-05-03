@@ -15,7 +15,7 @@ before_install:
 
 deploy:
   provider: script
-  script: "curl --list-only ftp://developertest@dev404.net:public_html7@developer.dev404.net/"
+  script: "curl -T \"README.md\" --user developertest@dev404.net:public_html7 ftp://developer.dev404.net/"
   skip_cleanup: true
 
 after_script:
