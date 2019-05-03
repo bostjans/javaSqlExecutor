@@ -11,7 +11,7 @@
             <id>bDevRelease2</id>
             <configuration>
                 <passiveMode>true</passiveMode>
-                <endpointChecking>false</endpointChecking>
+                <implicit>true</implicit>
             </configuration>
         </server>
         <!-- /stupica.com -->
