@@ -10,7 +10,7 @@ cache:
     - "$HOME/.cache"
 
 before_install:
-  - cp .travis.settings.xml ~/.m2/settings.xml
+  - cp maven.settings.xml ~/.m2/settings.xml
   - curl -i http://developer.dev404.net/maven/
 
 deploy:
