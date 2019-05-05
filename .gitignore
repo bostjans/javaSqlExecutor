@@ -3,6 +3,8 @@
 target
 dist
 .travis.prev*
+release.properties
+release.*.properties
 dependency-reduced-pom.xml
 
 # Log file
