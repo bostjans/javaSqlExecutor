@@ -15,6 +15,7 @@
         <url>http://www.stupica.com</url>
     </organization>
     <url>http://developer.stupica.com/maven</url>
+    <inceptionYear>2017</inceptionYear>
 
     <prerequisites>
         <maven>3.0.5</maven>
@@ -96,6 +97,16 @@
                 <version>2.5.3</version>
                 <configuration>
                     <tagNameFormat>v${project.version}</tagNameFormat>
+                    <!--
+                    <arguments>-Dmaven.test.skip=true -DskipTests -Dbatch=true</arguments>
+                    <tagBase>http://gitcore/user/app/tags</tagBase>
+                    -->
+                    <!-- for git -->
+                    <!--
+                    <remoteTagging>false</remoteTagging>
+                    <pushChanges>false</pushChanges> --> <!-- no auto push, better rollback -->
+                    <localCheckout>true</localCheckout> <!-- for git -->
+                    <waitBeforeTagging>2</waitBeforeTagging>
                 </configuration>
             </plugin>
 
