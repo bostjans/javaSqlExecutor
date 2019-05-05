@@ -1,4 +1,4 @@
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <!-- model version is always 4.0.0 for Maven 2.x POMs -->
     <modelVersion>4.0.0</modelVersion>
 
@@ -7,7 +7,7 @@
 
     <groupId>com.stupica.prog</groupId>
     <artifactId>sqlExecutor</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
     <name>sqlExecutor</name>
     <organization>
@@ -149,7 +149,8 @@
         <url>https://github.com/bostjans/javaSqlExecutor</url>
         <connection>scm:git:git@github.com:bostjans/javaSqlExecutor.git</connection>
         <developerConnection>scm:git:git@github.com:bostjans/javaSqlExecutor.git</developerConnection>
-    </scm>
+      <tag>v1.0.1</tag>
+  </scm>
 
     <developers>
         <developer>
