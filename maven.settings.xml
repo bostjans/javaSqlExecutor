@@ -16,6 +16,14 @@
                 -->
             </configuration>
         </server>
+        <server>
+            <username>${env.SCM_USERNAME}</username>
+            <password>${env.SCM_PSW}</password>
+            <!--
+            <privateKey>${env.CI_DEPLOY_PASSWORD}</privateKey>
+            -->
+            <id>github</id>
+        </server>
         <!-- /stupica.com -->
     </servers>
 
