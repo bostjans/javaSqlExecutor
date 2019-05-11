@@ -149,7 +149,7 @@
                     -->
                     <fileSets>
                         <fileSet>
-                            <directory>${project.build.directory}/dist</directory>
+                            <directory>${project.basedir}/dist</directory>
                             <includes>
                                 <include>*.zip</include>
                             </includes>
