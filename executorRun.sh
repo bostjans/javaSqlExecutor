@@ -3,7 +3,8 @@
 # This ..
 #
 
-java -jar sqlExecutor.jar -s $1 -d jdbc:mysql://localhost:3306/lenkodb -u lenkoApp -p lenkoApp
+java -jar ./dist/sqlExecutor/sqlExecutor.jar -d jdbc:mysql://localhost:3306/lenkodbtr -u lenkotrApp -p lenkoTrApp \
+    -s $1
 
 echo That_s it.
 
