@@ -18,10 +18,10 @@
         </server>
         <server>
             <username>${env.SCM_USERNAME}</username>
-            <password>${env.SCM_PSW}</password>
             <!--
-            <privateKey>${env.CI_DEPLOY_PASSWORD}</privateKey>
+            <password>${env.SCM_PSW}</password>
             -->
+            <privateKey>${env.CI_DEPLOY_APIKEY}</privateKey>
             <id>github</id>
         </server>
         <!-- /stupica.com -->

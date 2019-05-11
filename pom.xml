@@ -7,7 +7,7 @@
 
     <groupId>com.stupica.prog</groupId>
     <artifactId>sqlExecutor</artifactId>
-    <version>1.0.5-SNAPSHOT</version>
+    <version>1.0.6-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>sqlExecutor</name>
     <organization>
