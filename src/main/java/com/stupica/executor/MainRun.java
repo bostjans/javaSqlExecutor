@@ -228,7 +228,6 @@ public class MainRun extends MainRunBase {
         if (iResult == ConstGlobal.RETURN_OK) {
             // Run ..
             iResult = process();
-            // Error
             if (iResult != ConstGlobal.RETURN_OK) {
                 logger.severe("run(): Error at process() operation!");
             }
