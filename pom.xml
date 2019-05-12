@@ -190,6 +190,11 @@
       <tag>HEAD</tag>
   </scm>
 
+    <ciManagement>
+        <system>codeship.com</system>
+        <url>https://app.codeship.com/bostjan-dev-1</url>
+    </ciManagement>
+
     <developers>
         <developer>
             <id>bostjanst</id>
