@@ -5,6 +5,8 @@ dist
 .travis.prev*
 release.*.properties
 dependency-reduced-pom.xml
+executorRunTemp*.sh
+deploy.sh
 
 # Log file
 *.log
