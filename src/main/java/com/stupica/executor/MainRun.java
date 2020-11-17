@@ -315,7 +315,8 @@ public class MainRun extends MainRunBase {
         iResult = ConstGlobal.RETURN_SUCCESS;
 
 
-        iResult = ConstGlobal.RETURN_INVALID;
+        logger.severe("processSelect(): Functionality not supported (yet)!");
+        iResult = ConstGlobal.RETURN_FUNCNOTSUPPORTED;
         // Return
         return iResult;
     }
