@@ -9,12 +9,13 @@ Build status: [![Codeship Status for bostjans/javaSqlExecutor](https://app.codes
 
 ## How to build Artifact
 
-Local
+### Local
 
 `mvn clean package`
+
 `copy2media.sh`
 
 
-Via CI = Codeship
+### Via CI = Codeship
 
 TBD
