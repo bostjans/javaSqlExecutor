@@ -6,6 +6,8 @@ Build status: [![Build Status](https://travis-ci.org/bostjans/javaSqlExecutor.sv
 
 Build status: [![Codeship Status for bostjans/javaSqlExecutor](https://app.codeship.com/projects/d5440e50-507e-0137-d1ab-4a6287d94fd4/status?branch=master)](https://app.codeship.com/projects/340009)
 
+Build status: .. in GitHub;
+
 
 ## How to build Artifact
 
@@ -19,3 +21,13 @@ Build status: [![Codeship Status for bostjans/javaSqlExecutor](https://app.codes
 ### Via CI = Codeship
 
 TBD
+
+
+# Related
+
+* https://github.com/xo/usql
+
+
+# Reference
+
+* /

@@ -1,6 +1,5 @@
 package com.stupica.executor;
 
-
 import com.stupica.ConstGlobal;
 import com.stupica.GlobalVar;
 
@@ -39,9 +38,6 @@ public class MainRun extends MainRunBase {
     String  sJdbcUser = "test";
     String  sJdbcPsw = "test";
 
-    //String[]    arrField = null;
-    //String[]    arrOper = null;
-
     /**
      * Main object instance variable;
      */
@@ -74,8 +70,8 @@ public class MainRun extends MainRunBase {
         // Initialization
         iReturn = ConstGlobal.PROCESS_EXIT_SUCCESS;
         GlobalVar.getInstance().sProgName = "sqlExecutor.csv";
-        GlobalVar.getInstance().sVersionBuild = "21";
-        GlobalVar.getInstance().sAuthor = "stupica.com - Bostjan Stupica";
+        GlobalVar.getInstance().sVersionBuild = "22";
+        //GlobalVar.getInstance().sAuthor = "stupica.com - Bostjan Stupica";
 
         // Generate main program class
         objInstance = new MainRun();
@@ -242,7 +238,7 @@ public class MainRun extends MainRunBase {
      *
      * Run ..
      *
-     * @return int i_result	1 = AllOK;
+     * @return int iResult	1 = AllOK;
      */
     public int process() {
         // Local variables
@@ -304,7 +300,7 @@ public class MainRun extends MainRunBase {
      *
      * Process DML operation: Select
      *
-     * @return int i_result	1 = AllOK;
+     * @return int iResult	1 = AllOK;
      */
     private int processSelect() {
         // Local variables
@@ -313,7 +309,6 @@ public class MainRun extends MainRunBase {
 
         // Initialization
         iResult = ConstGlobal.RETURN_SUCCESS;
-
 
         logger.severe("processSelect(): Functionality not supported (yet)!");
         iResult = ConstGlobal.RETURN_FUNCNOTSUPPORTED;
@@ -326,7 +321,7 @@ public class MainRun extends MainRunBase {
      *
      * Process DML operation: Update/Insert/Delete
      *
-     * @return int i_result	1 = AllOK;
+     * @return int iResult	1 = AllOK;
      */
     private int processUID() {
         // Local variables

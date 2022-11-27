@@ -20,22 +20,21 @@
     </prerequisites>
 
     <!-- library dependencies -->
-
     <dependencies>
         <dependency>
             <groupId>com.stupica.base</groupId>
             <artifactId>mainRunner</artifactId>
-            <version>1.4.0</version>
+            <version>[1.4,2)</version>
         </dependency>
         <dependency>
             <groupId>com.stupica.base</groupId>
             <artifactId>jdbcKit</artifactId>
-            <version>1.5.0</version>
+            <version>[1.5.2,2)</version>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>sqlExecutor</finalName>
+        <finalName>${project.name}</finalName>
 
         <plugins>
             <plugin>
@@ -61,7 +60,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.2</version>
+                <version>3.3.0</version>
                 <configuration>
                     <archive>
                         <manifestEntries>
@@ -102,7 +101,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>3.4.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
