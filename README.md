@@ -2,11 +2,7 @@
 
 Sql Executor
 
-Build status: [![Build Status](https://travis-ci.org/bostjans/javaSqlExecutor.svg?branch=master)](https://travis-ci.org/bostjans/javaSqlExecutor) = unUsed;
-
-Build status: [![Codeship Status for bostjans/javaSqlExecutor](https://app.codeship.com/projects/d5440e50-507e-0137-d1ab-4a6287d94fd4/status?branch=master)](https://app.codeship.com/projects/340009)
-
-Build status: .. in GitHub;
+Build status: [![CI](https://github.com/bostjans/javaSqlExecutor/actions/workflows/ci.yml/badge.svg)](https://github.com/bostjans/javaSqlExecutor/actions/workflows/ci.yml) .. in GitHub TBD;
 
 
 ## How to build Artifact
@@ -18,13 +14,11 @@ Build status: .. in GitHub;
 `copy2media.sh`
 
 
-### Via CI = Codeship
-
-TBD
-
-
 # Related
 
+* https://sourceforge.net/projects/sqlline/
+  * https://sqlline.sourceforge.net/
+* https://github.com/julianhyde/sqlline
 * https://github.com/xo/usql
 
 
