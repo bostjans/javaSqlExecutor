@@ -8,7 +8,6 @@ import com.stupica.jdbc.StatementHandler;
 import com.stupica.mainRunner.MainRunBase;
 import jargs.gnu.CmdLineParser;
 
-import java.io.File;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -64,25 +63,17 @@ public class MainRun extends MainRunBase {
      * @param a_args
      */
     public static void main(String[] a_args) {
-        // Local variables
-        int             iReturn;
-
         // Initialization
-        iReturn = ConstGlobal.PROCESS_EXIT_SUCCESS;
         GlobalVar.getInstance().sProgName = "sqlExecutor.csv";
-        GlobalVar.getInstance().sVersionBuild = "22";
-        //GlobalVar.getInstance().sAuthor = "stupica.com - Bostjan Stupica";
+        GlobalVar.getInstance().sVersionBuild = "23";
 
         // Generate main program class
         objInstance = new MainRun();
-        iReturn = objInstance.invokeApp(a_args);
+        iReturnCode = objInstance.invokeApp(a_args);
 
         // Return
-        if (iReturn != ConstGlobal.PROCESS_EXIT_SUCCESS)
-            System.exit(iReturn);
-        else
-            //System.exit(ConstGlobal.EXIT_SUCCESS);
-            return;
+        if (iReturnCode != ConstGlobal.PROCESS_EXIT_SUCCESS)
+            System.exit(iReturnCode);
     }
 
 
@@ -90,7 +81,6 @@ public class MainRun extends MainRunBase {
         super.printUsage();
         //System.err.println("Usage: prog [-h,--help]");
         //System.err.println("            [-q,--quiet]");
-        //System.err.println("            [{-c,--currpair} a_currency_pair]");
         System.err.println("            [{-s,--sql} a_sql_statement]");
         System.err.println("            [{-d,--dest} a_jdbc_url]");
         System.err.println("            [{-u,--user} a_jdbc_username]");
@@ -110,6 +100,7 @@ public class MainRun extends MainRunBase {
      */
     protected void initialize() {
         super.initialize();
+        GlobalVar.bIsModeVerbose = true;
         bShouldReadConfig = false;
     }
 

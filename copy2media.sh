@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # This batch cp all required files from project
-# ... to folder from which the actual distrubution can be made.
+# .. to folder from which the actual distribution can be made.
 #
 
 rm -f -r dist
