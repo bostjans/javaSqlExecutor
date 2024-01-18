@@ -37,7 +37,7 @@
                     </snapshots>
                     <id>bDevRelease</id>
                     <name>release</name>
-                    <url>http://developer.stupica.com/maven</url>
+                    <url>https://developer.dev404.net/maven</url>
                 </repository>
             </repositories>
             <activation>

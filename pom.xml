@@ -16,13 +16,14 @@
     <inceptionYear>2017</inceptionYear>
 
     <prerequisites>
-        <maven>3.0.5</maven>
+        <maven>3.2.5</maven>
     </prerequisites>
 
     <properties>
         <java-version>1.8</java-version>
         <maven.compiler.source>${java-version}</maven.compiler.source>
         <maven.compiler.target>${java-version}</maven.compiler.target>
+        <start-class>com.stupica.executor.MainRun</start-class>
     </properties>
 
     <!-- library dependencies -->
@@ -35,9 +36,92 @@
         <dependency>
             <groupId>com.stupica.base</groupId>
             <artifactId>jdbcKit</artifactId>
-            <version>[1.5.2,2)</version>
+            <version>[1.5.5,2)</version>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>mysql</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties> <!-- Defines the variable with name .. -->
+                <profile.name>mysql</profile.name>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>8.0.33</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>mariadb</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties> <!-- Defines the variable with name .. -->
+                <profile.name>mariadb</profile.name>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.mariadb.jdbc</groupId>
+                    <artifactId>mariadb-java-client</artifactId>
+                    <version>3.2.0</version>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>com.github.waffle</groupId>
+                            <artifactId>waffle-jna</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>oracle</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties> <!-- Defines the variable with name .. -->
+                <profile.name>oracle</profile.name>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.oracle.database.jdbc</groupId>
+                    <artifactId>ojdbc8</artifactId>
+                    <version>19.17.0.0</version>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>com.oracle.database.ha</groupId>
+                            <artifactId>simplefan</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>com.oracle.database.ha</groupId>
+                            <artifactId>ons</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>com.oracle.database.jdbc</groupId>
+                            <artifactId>ucp</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>com.oracle.database.security</groupId>
+                            <artifactId>osdt_cert</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>com.oracle.database.security</groupId>
+                            <artifactId>osdt_core</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>com.oracle.database.security</groupId>
+                            <artifactId>oraclepki</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
     <build>
         <finalName>${project.name}</finalName>
@@ -59,7 +143,25 @@
                             <overWriteSnapshots>false</overWriteSnapshots>
                             <overWriteIfNewer>true</overWriteIfNewer>
                         </configuration>
-                    </execution>
+                    </execution> <!--
+                    <execution>
+                        <phase>package</phase>
+                        <goals><goal>copy</goal></goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>mysql</groupId>
+                                    <artifactId>mysql-connector-java</artifactId>
+                                    <version>8.0.33</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>com.oracle.database.jdbc</groupId>
+                                    <artifactId>ojdbc8</artifactId>
+                                    <version>19.17.0.0</version>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution> -->
                 </executions>
             </plugin>
 
@@ -79,7 +181,7 @@
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.stupica.executor.MainRun</mainClass>
+                            <mainClass>${start-class}</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -103,7 +205,7 @@
                     <waitBeforeTagging>2</waitBeforeTagging>
                 </configuration>
             </plugin>
-
+            <!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -117,23 +219,54 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.stupica.executor.MainRun</mainClass>
+                                    <mainClass>${start-class}</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin> -->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.6.0</version>
+                <configuration>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <finalName>${project.name}-${profile.name}</finalName>
+                    <descriptors>
+                        <descriptor>${basedir}/src/main/assembly/packZip.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>create-archive</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.ferstl</groupId>
+                <artifactId>depgraph-maven-plugin</artifactId>
+                <version>4.0.3</version> <!--
+                <configuration>
+                    ...
+                </configuration> -->
             </plugin>
 
             <plugin>
                 <groupId>de.jutzig</groupId>
                 <artifactId>github-release-plugin</artifactId>
-                <version>1.4.0</version>
+                <version>1.6.0</version>
                 <configuration>
-                    <description>Release Alpha-1 - testing GitHub Release</description>
+                    <description>Release Alpha-2 - testing GitHub Release</description>
                     <releaseName>${project.version} Alpha</releaseName>
                     <tag>v${project.version}</tag>
-                    <artifact>${project.basedir}/dist/*.zip</artifact>
+                    <artifact>${project.basedir}/target/*.zip</artifact>
                     <prerelease>true</prerelease>
                     <overwriteArtifact>false</overwriteArtifact>
                     <!-- If your project has additional artifacts, such as ones produced by
@@ -143,7 +276,7 @@
                     -->
                     <fileSets>
                         <fileSet>
-                            <directory>${project.basedir}/dist</directory>
+                            <directory>${project.basedir}/target</directory>
                             <includes>
                                 <include>*.zip</include>
                             </includes>
@@ -157,7 +290,7 @@
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-ftp</artifactId>
-                <version>3.3.2</version>
+                <version>3.3.4</version>
             </extension>
         </extensions>
     </build>

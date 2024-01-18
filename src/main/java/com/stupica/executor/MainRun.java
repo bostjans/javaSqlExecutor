@@ -3,12 +3,12 @@ package com.stupica.executor;
 import com.stupica.ConstGlobal;
 import com.stupica.GlobalVar;
 
+import com.stupica.ResultProces;
 import com.stupica.jdbc.ConnectionHandler;
 import com.stupica.jdbc.StatementHandler;
 import com.stupica.mainRunner.MainRunBase;
 import jargs.gnu.CmdLineParser;
 
-import java.util.Date;
 import java.util.logging.Logger;
 
 
@@ -18,16 +18,16 @@ import java.util.logging.Logger;
 public class MainRun extends MainRunBase {
     // Variables
     //
-    boolean bIsModeTest = true;
+    //boolean bIsModeTest = true;
     boolean bIsModeVerbose = true;
 
-    int     iNumOfFieldMax = 99;
+    //int     iNumOfFieldMax = 99;
 
     long    iMaxNumOfRows = 0;
 
-    String  sDelimiter = ",";
-    String  sQuoteFieldChar = "\"";
-    char    cQuoteFieldChar = '"';
+    //String  sDelimiter = ",";
+    //String  sQuoteFieldChar = "\"";
+    //char    cQuoteFieldChar = '"';
 
     String  sInputSql = null;
     String  sJdbcConn = "jdbc:mysql://localhost/test";
@@ -65,7 +65,7 @@ public class MainRun extends MainRunBase {
     public static void main(String[] a_args) {
         // Initialization
         GlobalVar.getInstance().sProgName = "sqlExecutor.csv";
-        GlobalVar.getInstance().sVersionBuild = "23";
+        GlobalVar.getInstance().sVersionBuild = "25";
 
         // Generate main program class
         objInstance = new MainRun();
@@ -90,7 +90,7 @@ public class MainRun extends MainRunBase {
         //System.err.println("            [{-c,--csv} CSV_delimiter]");
         //System.err.println("            [{-f,--field(s)} field(s) definition");
         //System.err.println("            [{--fieldCheck} field(s) definition 2 check");
-        System.err.println("            [{-m,--maxRows} max rows to import");
+        System.err.println("            [{-m,--maxRows} max rows to process");
     }
 
     /**
@@ -213,7 +213,6 @@ public class MainRun extends MainRunBase {
 
         // Check previous step
         if (iResult == ConstGlobal.RETURN_OK) {
-            // Run ..
             iResult = process();
             if (iResult != ConstGlobal.RETURN_OK) {
                 logger.severe("run(): Error at process() operation!");
@@ -233,15 +232,17 @@ public class MainRun extends MainRunBase {
      */
     public int process() {
         // Local variables
-        int         iResult;
+        int             iResult;
+        ResultProces    objResultSql;
         //
         long        iCountData = 0L;
-        Date        dtStart;
-        Date        dtStop = null;
+        long        dtStart;
+        long        dtStop;
 
         // Initialization
         iResult = ConstGlobal.RETURN_SUCCESS;
-        dtStart = new Date();
+        objResultSql = new ResultProces();
+        dtStart = System.currentTimeMillis();
 
         // Process data/SQL ..
         while (iResult == ConstGlobal.RETURN_OK) {
@@ -254,12 +255,12 @@ public class MainRun extends MainRunBase {
                 }
 
                 if (sInputSql.toLowerCase().trim().startsWith("select")) {
-                    iResult = processSelect();
+                    objResultSql.iResult = processSelect();
                 } else {
-                    iResult = processUID();
+                    objResultSql = processUID();
                 }
                 // Error ..
-                if (iResult != ConstGlobal.RETURN_OK) {
+                if (objResultSql.iResult != ConstGlobal.RETURN_OK) {
                     logger.severe("process(): Error at processSelect()/processUID() operation!");
                     break;
                 }
@@ -277,11 +278,11 @@ public class MainRun extends MainRunBase {
             iResult = ConstGlobal.RETURN_SUCCESS;
         }
 
-        dtStop = new Date();
+        dtStop = System.currentTimeMillis();
         logger.info("process(): Processing done."
-                + "\n\tData num.: " + iCountData
-                + "\n\tDuration(ms): " + (dtStop.getTime() - dtStart.getTime()));
-        // Return
+                + "\tLoop num.: " + iCountData
+                + "\tData num.: " + objResultSql.sText
+                + "\tDuration(ms): " + (dtStop - dtStart));
         return iResult;
     }
 
@@ -314,30 +315,27 @@ public class MainRun extends MainRunBase {
      *
      * @return int iResult	1 = AllOK;
      */
-    private int processUID() {
+    private ResultProces processUID() {
         // Local variables
-        int         iResult;
-        long        iCountProcessed;
+        long            iCountProcessed;
+        ResultProces    objResult = new ResultProces();
 
         // Initialization
-        iResult = ConstGlobal.RETURN_SUCCESS;
 
-        iCountProcessed = objStatHandler.executeUpdate(sInputSql);
+        objResult.iResult = objStatHandler.executeUpdate(sInputSql);
+        iCountProcessed = objStatHandler.iCountRowsProcessedLast;
+        objResult.sText = Long.valueOf(iCountProcessed).toString();
         // Error ..
-        if (iCountProcessed < 0) {
-            if (iCountProcessed == ConstGlobal.RETURN_NODATA) {
-                iCountProcessed = 0;
-            } else {
-                iResult = (int) iCountProcessed;
-            }
+        if (objResult.iResult == ConstGlobal.RETURN_NODATA) {
+            if (iCountProcessed == 0)
+                objResult.iResult = ConstGlobal.RETURN_SUCCESS;
         }
-        if (iResult != ConstGlobal.RETURN_OK) {
+        if (objResult.iResult != ConstGlobal.RETURN_OK) {
             logger.severe("processUID(): Error at executeUpdate() operation!"
                     + " CountProcessed: " + iCountProcessed);
         }
         logger.info("processUID(): Processing done."
                 + "\tData (rows) processed: " + iCountProcessed);
-        // Return
-        return iResult;
+        return objResult;
     }
 }
