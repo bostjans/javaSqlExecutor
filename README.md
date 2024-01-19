@@ -9,14 +9,15 @@ Build status: [![CI](https://github.com/bostjans/javaSqlExecutor/actions/workflo
 
 ### Local
 
-`mvn clean package -P mariadb`
-
-`mvn clean package -P oracle`
-
-`mvn depgraph:graph -DcreateImage=true`
+```
+mvn clean package -P mariadb
+mvn package -P oracle
+mvn depgraph:graph -DcreateImage=true
+```
 
 SCM: commit & push
 
+To upload artifact to GitHub:
 `mvn github-release:release`
 
 `./deploy.sh`
