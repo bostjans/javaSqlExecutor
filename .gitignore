@@ -2,8 +2,8 @@
 *.class
 target
 dist
-.travis.prev*
-release.*.properties
+*.releaseBackup
+#release.*.properties
 dependency-reduced-pom.xml
 executorRunTemp*.sh
 deploy.sh
