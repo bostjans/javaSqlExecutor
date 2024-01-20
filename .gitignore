@@ -6,7 +6,7 @@ dist
 #release.*.properties
 dependency-reduced-pom.xml
 executorRunTemp*.sh
-deploy.sh
+deploy.*.sh
 
 # Log file
 *.log
