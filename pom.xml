@@ -5,14 +5,14 @@
     <!-- project coordinates, i.e. a group of values which uniquely identify this project -->
     <groupId>com.stupica.prog</groupId>
     <artifactId>sqlExecutor</artifactId>
-    <version>1.0.10-SNAPSHOT</version>
+    <version>1.0.11-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>sqlExecutor</name>
     <organization>
         <name>Developer404</name>
         <url>http://www.stupica.com</url>
     </organization>
-    <url>http://developer.stupica.com/maven</url>
+    <url>https://developer.dev404.net/maven/</url>
     <inceptionYear>2017</inceptionYear>
 
     <prerequisites>
@@ -234,6 +234,7 @@
                 <configuration>
                     <appendAssemblyId>false</appendAssemblyId>
                     <finalName>${project.name}-${profile.name}</finalName>
+                    <outputDirectory>${project.basedir}/build</outputDirectory>
                     <descriptors>
                         <descriptor>${basedir}/src/main/assembly/packZip.xml</descriptor>
                     </descriptors>
@@ -276,7 +277,7 @@
                     -->
                     <fileSets>
                         <fileSet>
-                            <directory>${project.basedir}/target</directory>
+                            <directory>${project.basedir}/build</directory>
                             <includes>
                                 <include>*.zip</include>
                             </includes>
@@ -295,14 +296,6 @@
         </extensions>
     </build>
 
-    <!--
-    <repositories>
-        <repository>
-            <id>jboss-3rd-party-releases</id>
-            <url>https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/</url>
-        </repository>
-    </repositories> -->
-
     <distributionManagement>
         <repository>
             <id>bDevRelease2</id>
@@ -314,7 +307,7 @@
         <url>https://github.com/bostjans/javaSqlExecutor</url>
         <connection>scm:git:git@github.com:bostjans/javaSqlExecutor.git</connection>
         <developerConnection>scm:git:git@github.com:bostjans/javaSqlExecutor.git</developerConnection>
-        <tag>v1.0.9-SNAPSHOT</tag>
+        <tag>v1.0.11-SNAPSHOT</tag>
     </scm>
 
     <ciManagement>

@@ -2,8 +2,8 @@
 *.class
 target
 dist
+build
 *.releaseBackup
-#release.*.properties
 dependency-reduced-pom.xml
 executorRunTemp*.sh
 deploy.*.sh

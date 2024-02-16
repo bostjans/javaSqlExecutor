@@ -29,10 +29,6 @@ fi
 
 #java -jar $PATH_PROG/sqlExecutor.jar -h
 
-#java $VMparam -jar $PATH_PROG/sqlExecutor.jar \
-#    -d jdbc:mysql://fqdn_db:3306/lenkoDb \
-#    -u lenkoTrApp -p somePsw \
-#    -s "select 1;"
 java $VMparam -jar $PATH_PROG/sqlExecutor.jar \
     -d $1 \
     -u $2 -p $3 \

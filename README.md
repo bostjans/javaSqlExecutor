@@ -13,11 +13,13 @@ Build status: [![CI](https://github.com/bostjans/javaSqlExecutor/actions/workflo
 `mvn release:prepare`
 
 To increment version(s):
-`mvn release:update-versions`
 
+* `mvn release:update-versions`
+* +
 ```
+mvn clean package -P mysql
+mvn clean package -P oracle
 mvn clean package -P mariadb
-mvn package -P oracle
 mvn depgraph:graph -DcreateImage=true
 ```
 
