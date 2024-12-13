@@ -9,6 +9,8 @@ Build status: [![CI](https://github.com/bostjans/javaSqlExecutor/actions/workflo
 
 ### Local
 
+DEVelop in "snapshot" version.
+
 (Just) First time (!):
 `mvn release:prepare`
 

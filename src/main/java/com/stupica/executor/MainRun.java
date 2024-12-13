@@ -65,7 +65,7 @@ public class MainRun extends MainRunBase {
     public static void main(String[] a_args) {
         // Initialization
         GlobalVar.getInstance().sProgName = "sqlExecutor.csv";
-        GlobalVar.getInstance().sVersionBuild = "25";
+        GlobalVar.getInstance().sVersionBuild = "26";
 
         // Generate main program class
         objInstance = new MainRun();
