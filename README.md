@@ -1,6 +1,8 @@
 # javaSqlExecutor
 
-Sql Executor
+SqlExecutor
+
+.. it is just a simple Java program to run SQL command via JDBC.
 
 Build status: [![CI](https://github.com/bostjans/javaSqlExecutor/actions/workflows/ci.yml/badge.svg)](https://github.com/bostjans/javaSqlExecutor/actions/workflows/ci.yml) .. in GitHub TBD;
 
@@ -11,27 +13,37 @@ Build status: [![CI](https://github.com/bostjans/javaSqlExecutor/actions/workflo
 
 DEVelop in "snapshot" version.
 
-(Just) First time (!):
+Then:
 `mvn release:prepare`
 
-To increment version(s):
+Then:
+`mvn release:perform`
+`mvn release:perform -P mysql` .. for specific DB type;
 
-* `mvn release:update-versions`
+Then > make build(-s) for GitHub Release:
 * +
 ```
+cd target/checkout/
 mvn clean package -P mysql
 mvn clean package -P oracle
 mvn clean package -P mariadb
-mvn depgraph:graph -DcreateImage=true
 ```
+  * files will reside in: `target/checkout/build/`
+
+To upload artifact to GitHub: `mvn github-release:release`
+
+To increment version(s) - if required (usually note required):
+
+* `mvn release:update-versions`
+
+To build some documentation:
+
+* `mvn depgraph:graph -DcreateImage=true`
 
 SCM: commit & push
 
-To upload artifact to GitHub:
-`mvn github-release:release`
-
 .. and (local) deploy:
-`./deploy.sh`
+`mvn clean package -P mysql,mariadb,oracle && ./deploy.sh`
 
 
 # Related
