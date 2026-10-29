@@ -22,8 +22,9 @@ Then:
 
 Then > make build(-s) for GitHub Release:
 * +
-```
-cd target/checkout/
+```sh
+rm -fr build
+
 mvn clean package -P mysql
 mvn clean package -P oracle
 mvn clean package -P mariadb
